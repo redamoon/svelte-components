@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Svelte + TS</title>
   </head>
+  <body>
   <div>
     <mt-counter />
   </div>
@@ -15,6 +16,26 @@
   <div>
     <my-text />
   </div>
+  <div>
+    <text-input />
+  </div>
+  <div id="values"></div>
     <script type="module" src="/src/main.ts"></script>
+  <script>
+    const log = document.getElementById('values');
+    // const data = document.querySelector('text-input');
+    // console.log(data.name)
+    // document.querySelector('text-input').addEventListener('input', updateValue);
+    // function updateValue(e) {
+    //   log.textContent = e.target.$$.ctx[0];
+    // }
+    customElements.whenDefined('text-input').then(() => {
+      const custom = document.getElementsByTagName('text-input')[0];
+      log.textContent = custom.person
+      custom.addEventListener('personChange', (e) => {
+        log.textContent =  e.detail.person
+      });
+    });
+  </script>
   </body>
 </html>
